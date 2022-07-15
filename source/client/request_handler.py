@@ -71,3 +71,25 @@ def send_ls_request(username, directories):
         print ("Files and Directories:")
         for file in result["files"]:
             print(file)
+    
+def send_rm_directory_request(username, path):
+    request_data = {
+        "type": "File",
+        "command": "rm",
+        "name": username,
+        "fileOrDirectory": "Directory",
+        "path": path
+        }
+    result = handle_request(request_data)
+    print (result)
+
+def send_rm_file_request(username, path):
+    request_data = {
+        "type": "File",
+        "command": "rm",
+        "name": username,
+        "fileOrDirectory": "File",
+        "path": path
+        }
+    result = handle_request(request_data)
+    print (result)

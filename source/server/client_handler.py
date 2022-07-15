@@ -47,4 +47,6 @@ def handle_request(request):
         elif (request['command'] == 'cd'):
             return user.filesystem.cd(request['directories'])
         elif (request['command'] == 'ls'):
-            return user.filesystem.ls(request['directories'])
+            return user.filesystem.ls(request['directories'], user.username)
+        elif (request['command'] == 'rm'):
+            return user.filesystem.rm(request['fileOrDirectory'], request['path'], user.username)

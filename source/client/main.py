@@ -45,11 +45,17 @@ while (True):
                 request_handler.send_ls_request(current_user.name, input_parts[1].split("/"))
             else:
                 request_handler.send_ls_request(current_user.name, [])
+        elif (input_parts[0] == "rm" and len(input_parts) <= 3):
+            if (input_parts[1] == "-r"):
+                request_handler.send_rm_directory_request(current_user.name, input_parts[2].split("/"))
+            else:
+                request_handler.send_rm_file_request(current_user.name, input_parts[1].split("/"))
         elif (input_parts[0] == "Help"):
             print ("Valid commands are as below:")
             print ("1- mkdir [directory/directory/...]")
             print ("2- touch [directory/directory/.../file]")
             print ("3- cd [directory/directory/...]")
             print ("4- ls [directory/directory/...]")
+            print ("5- rm (optional)[-r] [directory/directory/...]")
         else:
             print ("Wrong command.")
