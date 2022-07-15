@@ -20,7 +20,7 @@ class FileSystemHandler():
             elif (dir == ""):
                 temp_path = path
             else:
-                if not os.path.exists(temp_path):
+                if (not os.path.exists(temp_path) or os.path.isfile(temp_path)):
                     os.mkdir(path)
         return temp_path
     
@@ -36,7 +36,6 @@ class FileSystemHandler():
         temp_path = self.repo_path
         for dir in directories:
             temp_path = os.path.join(temp_path, dir)
-            print(temp_path)
             if (dir == "."):
                 pass
             elif (dir == ".."):
@@ -45,8 +44,31 @@ class FileSystemHandler():
             elif (dir == ""):
                 temp_path = path
             else:
-                if not os.path.exists(temp_path):
+                if (not os.path.exists(temp_path) or os.path.isfile(temp_path)):
                     return "Directory not exists with name: " + dir 
         self.repo_path = temp_path
         return "Current path is: " + self.repo_path
+    
+    def ls(self, directories):
+        temp_path = self.repo_path
+        if (len(directories) == 0):
+            pass
+        else:
+            for dir in directories:
+                temp_path = os.path.join(temp_path, dir)
+                if (dir == "."):
+                    pass
+                elif (dir == ".."):
+                    if (temp_path != path):
+                        temp_path = os.path.abspath(temp_path)
+                elif (dir == ""):
+                    temp_path = path
+                else:
+                    if not os.path.exists(temp_path):
+                        return "Directory not exists with name: " + dir 
+        data = {
+        "current_path": self.repo_path,
+        "files": os.listdir(temp_path)
+        }
+        return data
             

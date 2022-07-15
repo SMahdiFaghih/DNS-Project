@@ -45,3 +45,5 @@ def handle_request(request):
             return user.filesystem.touch(request['directories'], request['file'], user.username)
         elif (request['command'] == 'cd'):
             return user.filesystem.cd(request['directories'])
+        elif (request['command'] == 'ls'):
+            return user.filesystem.ls(request['directories'])

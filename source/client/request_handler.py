@@ -1,3 +1,4 @@
+from distutils import filelist
 from ..server.client_handler import handle_request
 
 def send_register_request(firstname, lastname, username, password):
@@ -54,3 +55,19 @@ def send_cd_request(username, directories):
         }
     result = handle_request(request_data)
     print (result)
+
+def send_ls_request(username, directories):
+    request_data = {
+        "type": "File",
+        "command": "ls",
+        "name": username,
+        "directories": directories
+        }
+    result = handle_request(request_data)
+    if (type(result) is str):
+        print (result)
+    else:
+        print ("Current Path is: " + result["current_path"])
+        print ("Files and Directories:")
+        for file in result["files"]:
+            print(file)
