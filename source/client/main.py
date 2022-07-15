@@ -23,7 +23,7 @@ while (True):
         else:
             print ("Wrong command.")
     else:
-        print ("Enter mkdir/touch/cd/ls/rm/GetFile/EditFile commands or enter Help command for more info")
+        print ("Enter mkdir/touch/cd/ls/rm/GetFile/EditFile/LogOut commands or enter Help command for more info")
         input_text = input()
         input_parts = input_text.split()
         if (input_parts[0] == "mkdir" and len(input_parts) == 2):
@@ -59,6 +59,8 @@ while (True):
             print(input_parts[2])
             encrypted_data = security_handler.encrypt(input_parts[2])
             request_handler.send_edit_file_request(current_user, directories, file, encrypted_data)
+        elif (input_parts[0] == "LogOut" and len(input_parts) == 1):
+            current_user = None
         elif (input_parts[0] == "Help"):
             print ("Valid commands are as below:")
             print ("1- mkdir [directory/directory/...]")
@@ -68,5 +70,6 @@ while (True):
             print ("5- rm (optional)[-r] [directory/directory/...]")
             print ("6- GetFile [directory/directory/.../file]")
             print ("7- EditFile [directory/directory/.../file] [new data]")
+            print ("8- LogOut")
         else:
             print ("Wrong command.")

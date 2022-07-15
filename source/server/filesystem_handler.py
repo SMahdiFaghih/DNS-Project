@@ -23,10 +23,9 @@ class FileSystemHandler():
                 temp_path = path
             else:
                 temp_path = os.path.join(temp_path, dir)
-                print(temp_path)
                 if (not os.path.exists(temp_path) or os.path.isfile(temp_path)):
                     os.mkdir(temp_path)
-        return temp_path
+        return "Folders created successfully"
     
     def touch(self, directories, file, owner):
         temp_path = self.mkdir(directories)
