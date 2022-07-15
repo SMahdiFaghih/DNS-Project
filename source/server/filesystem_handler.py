@@ -1,5 +1,7 @@
 import os
 
+from source.server import security_handler
+
 path = os.path.join(os.path.dirname(__file__), "FileRepo")
 if not os.path.exists(path):
     os.mkdir(path)
@@ -11,17 +13,19 @@ class FileSystemHandler():
     def mkdir(self, directories):
         temp_path = self.repo_path
         for dir in directories:
-            temp_path = os.path.join(temp_path, dir)
             if (dir == "."):
                 pass
             elif (dir == ".."):
+                temp_path = os.path.join(temp_path, "..")
                 if (temp_path != path):
                     temp_path = os.path.abspath(temp_path)
             elif (dir == ""):
                 temp_path = path
             else:
+                temp_path = os.path.join(temp_path, dir)
+                print(temp_path)
                 if (not os.path.exists(temp_path) or os.path.isfile(temp_path)):
-                    os.mkdir(path)
+                    os.mkdir(temp_path)
         return temp_path
     
     def touch(self, directories, file, owner):
@@ -29,7 +33,8 @@ class FileSystemHandler():
         file_path = temp_path + "/" + file
         if not os.path.isfile(file_path):
             fp = open(file_path, 'w')
-            fp.write(owner)
+            encrypted_owner = security_handler.encrypt(owner + "\nTesting")
+            fp.write(encrypted_owner)
             fp.close()
 
     def cd(self, directories):

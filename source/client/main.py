@@ -8,12 +8,6 @@ class User:
         self.name = name
         self.public_key = public_key
         self.private_key = private_key
-    
-    def encrypt(self, input_text):
-        pass
-
-    def decrypt(self, input_text):
-        pass
 
 while (True):
     if (current_user == None):

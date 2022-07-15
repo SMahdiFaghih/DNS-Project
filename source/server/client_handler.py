@@ -1,5 +1,6 @@
 from . import database_handler
 from .filesystem_handler import FileSystemHandler
+from .security_handler import *
 
 class User():
     def __init__(self, username) -> None:
