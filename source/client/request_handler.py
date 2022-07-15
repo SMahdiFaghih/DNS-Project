@@ -104,7 +104,8 @@ def send_get_file_request(username, directories, file):
         }
     result = handle_request(request_data)
     if (result[1] == "Error"):
-        print (result)
+        print (result[0])
+        return ""
     else:
         return result[0]
 

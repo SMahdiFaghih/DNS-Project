@@ -8,7 +8,7 @@ private_key = ""
 path = os.path.join(os.path.dirname(__file__), "key")
 if not os.path.exists(path):
     os.mkdir(path)
-    (publicKey, privateKey) = rsa.newkeys(1024)
+    (publicKey, privateKey) = rsa.newkeys(2048)
     p = open(path + "/publicKey.pem", 'wb')
     p.write(publicKey.save_pkcs1('PEM'))
     p.close()
