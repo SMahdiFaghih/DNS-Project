@@ -11,6 +11,7 @@ def send_register_request(firstname, lastname, username, password):
         }
     result = handle_request(request_data)
     print (result)
+    return result == "Registeration done successfully"
 
 def send_login_request(username, password):
     request_data = {
@@ -21,3 +22,4 @@ def send_login_request(username, password):
         }
     result = handle_request(request_data)
     print (result)
+    return result == "Login done successfully"
