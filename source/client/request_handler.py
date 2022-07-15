@@ -23,3 +23,13 @@ def send_login_request(username, password):
     result = handle_request(request_data)
     print (result)
     return result == "Login done successfully"
+
+def send_mkdir_request(username, directories):
+    request_data = {
+        "type": "File",
+        "command": "mkdir",
+        "name": username,
+        "directories": directories
+        }
+    result = handle_request(request_data)
+    print (result)

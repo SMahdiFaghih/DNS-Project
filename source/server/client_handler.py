@@ -1,17 +1,17 @@
 from . import database_handler
 from .filesystem_handler import FileSystemHandler
 
+class User():
+    def __init__(self, username) -> None:
+        self.username = username
+        self.filesystem = FileSystemHandler()
+        
 user_list = []
 def find_user(username):
     for user in user_list:
         if (user.username == username):
             return user
     return None
-
-class User():
-    def __init__(self, username) -> None:
-        self.username = username
-        self.filesystem = FileSystemHandler()
 
 def handle_request(request):
     if (request["type"] == "User"):
@@ -38,6 +38,6 @@ def handle_request(request):
         else:
             return "Wrong command"
     elif (request['type'] == "File"):
-        user = find_user['name']
-        if (request['command_type'] == 'mkdir'):
-            user.filesystem.mkdir(request['name'])
+        user = find_user(request['name'])
+        if (request['command'] == 'mkdir'):
+            user.filesystem.mkdir(request['directories'])
