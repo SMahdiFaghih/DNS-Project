@@ -52,3 +52,5 @@ def handle_request(request):
             return user.filesystem.rm(request['fileOrDirectory'], request['path'], user.username)
         elif (request['command'] == 'GetFile'):
             return user.filesystem.get_file_data(request['directories'], request['file'], user.username)
+        elif (request['command'] == 'EditFile'):
+            return user.filesystem.edit_file(request['directories'], request['file'], request['data'], user.username)

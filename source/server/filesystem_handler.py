@@ -33,7 +33,7 @@ class FileSystemHandler():
         file_path = temp_path + "/" + file
         if not os.path.isfile(file_path):
             fp = open(file_path, 'w')
-            encrypted_owner = security_handler.encrypt(owner + "\nTesting")
+            encrypted_owner = security_handler.encrypt(owner)
             fp.write(encrypted_owner)
             fp.close()
             return "File created successfully"
@@ -132,13 +132,44 @@ class FileSystemHandler():
                 temp_path = path
             else:
                 if not os.path.exists(temp_path):
-                    return "Directory or File not exists with name: " + dir
+                    return ["Directory not exists with name: " + dir, "Error"]
         file_path = temp_path + "/" + file
-        if os.path.isfile(file_path):
+        if (os.path.exists(temp_path) and os.path.isfile(file_path)):
+            p = open(file_path, 'r')
+            file_data = security_handler.decrypt(p.read()).split("\n")
+            if (file_data[0] == username):
+                if (len(file_data) == 1):
+                    return ["", "Success"]
+                return [file_data[1], "Success"]
+            else:
+                return ["File not exists with name: " + file, "Error"]
+        else:
+            return ["File not exists with name: " + file, "Error"]
+    
+    def edit_file(self, directories, file, data, owner):
+        temp_path = self.repo_path
+        for dir in directories:
+            temp_path = os.path.join(temp_path, dir)
+            if (dir == "."):
+                pass
+            elif (dir == ".."):
+                if (temp_path != path):
+                    temp_path = os.path.abspath(temp_path)
+            elif (dir == ""):
+                temp_path = path
+            else:
+                if not os.path.exists(temp_path):
+                    return "Directory not exists with name: " + dir
+        file_path = temp_path + "/" + file
+        if (os.path.exists(temp_path) and os.path.isfile(file_path)):
             p = open(file_path, 'r')
             file_data = security_handler.decrypt(p.read())
-            if (file_data.split("\n")[0] == username):
-                return file_data.split("\n")[1]
+            if (file_data.split("\n")[0] == owner):
+                fp = open(file_path, 'w')
+                encrypted_owner = security_handler.encrypt(owner + "\n" + data)
+                fp.write(encrypted_owner)
+                fp.close()
+                return "File edited successfully"
             else:
                 return "File not exists with name: " + file
         else:

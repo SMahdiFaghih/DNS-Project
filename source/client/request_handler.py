@@ -103,4 +103,19 @@ def send_get_file_request(username, directories, file):
         "file": file
         }
     result = handle_request(request_data)
-    print (result)
+    if (result[1] == "Error"):
+        print (result)
+    else:
+        return result[0]
+
+def send_edit_file_request(username, directories, file, data):
+    request_data = {
+        "type": "File",
+        "command": "EditFile",
+        "name": username,
+        "directories": directories,
+        "file": file,
+        "data": data
+        }
+    result = handle_request(request_data)
+    print (result)   
