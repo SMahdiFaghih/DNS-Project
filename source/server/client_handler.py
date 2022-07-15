@@ -50,3 +50,5 @@ def handle_request(request):
             return user.filesystem.ls(request['directories'], user.username)
         elif (request['command'] == 'rm'):
             return user.filesystem.rm(request['fileOrDirectory'], request['path'], user.username)
+        elif (request['command'] == 'GetFile'):
+            return user.filesystem.get_file_data(request['directories'], request['file'], user.username)

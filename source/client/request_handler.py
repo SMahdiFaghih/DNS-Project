@@ -93,3 +93,14 @@ def send_rm_file_request(username, path):
         }
     result = handle_request(request_data)
     print (result)
+
+def send_get_file_request(username, directories, file):
+    request_data = {
+        "type": "File",
+        "command": "GetFile",
+        "name": username,
+        "directories": directories,
+        "file": file
+        }
+    result = handle_request(request_data)
+    print (result)

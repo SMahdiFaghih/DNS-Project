@@ -30,7 +30,7 @@ while (True):
         else:
             print ("Wrong command.")
     else:
-        print ("Enter mkdir/touch/cd/ls/rm/mv commands or enter Help command for more info")
+        print ("Enter mkdir/touch/cd/ls/rm/mv/GetFile commands or enter Help command for more info")
         input_parts = input().split()
         if (input_parts[0] == "mkdir" and len(input_parts) == 2):
             request_handler.send_mkdir_request(current_user.name, input_parts[1].split("/"))
@@ -50,6 +50,10 @@ while (True):
                 request_handler.send_rm_directory_request(current_user.name, input_parts[2].split("/"))
             else:
                 request_handler.send_rm_file_request(current_user.name, input_parts[1].split("/"))
+        elif (input_parts[0] == "GetFile" and len(input_parts) == 2):
+            directories = input_parts[1].split("/")[:-1]
+            file = input_parts[1].split("/")[-1]
+            request_handler.send_get_file_request(current_user.name, directories, file)
         elif (input_parts[0] == "Help"):
             print ("Valid commands are as below:")
             print ("1- mkdir [directory/directory/...]")
@@ -57,5 +61,6 @@ while (True):
             print ("3- cd [directory/directory/...]")
             print ("4- ls [directory/directory/...]")
             print ("5- rm (optional)[-r] [directory/directory/...]")
+            print ("6- GetFile [directory/directory/.../file]")
         else:
             print ("Wrong command.")

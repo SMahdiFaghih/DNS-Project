@@ -36,6 +36,9 @@ class FileSystemHandler():
             encrypted_owner = security_handler.encrypt(owner + "\nTesting")
             fp.write(encrypted_owner)
             fp.close()
+            return "File created successfully"
+        else:
+            return "Error occurred"
 
     def cd(self, directories):
         temp_path = self.repo_path
@@ -87,9 +90,9 @@ class FileSystemHandler():
         }
         return data
     
-    def rm(self, fileOrDirectory, path, username):
+    def rm(self, fileOrDirectory, directories, username):
         temp_path = self.repo_path
-        for dir in path:
+        for dir in directories:
             temp_path = os.path.join(temp_path, dir)
             if (dir == "."):
                 pass
@@ -115,4 +118,28 @@ class FileSystemHandler():
                 return "Directory removed successfully"             
             else: 
                 return "Directory is not empty"
-            
+    
+    def get_file_data(self, directories, file, username):
+        temp_path = self.repo_path
+        for dir in directories:
+            temp_path = os.path.join(temp_path, dir)
+            if (dir == "."):
+                pass
+            elif (dir == ".."):
+                if (temp_path != path):
+                    temp_path = os.path.abspath(temp_path)
+            elif (dir == ""):
+                temp_path = path
+            else:
+                if not os.path.exists(temp_path):
+                    return "Directory or File not exists with name: " + dir
+        file_path = temp_path + "/" + file
+        if os.path.isfile(file_path):
+            p = open(file_path, 'r')
+            file_data = security_handler.decrypt(p.read())
+            if (file_data.split("\n")[0] == username):
+                return file_data.split("\n")[1]
+            else:
+                return "File not exists with name: " + file
+        else:
+            return "File not exists with name: " + file
