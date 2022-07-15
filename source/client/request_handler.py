@@ -33,3 +33,14 @@ def send_mkdir_request(username, directories):
         }
     result = handle_request(request_data)
     print (result)
+
+def send_touch_request(username, directories, file):
+    request_data = {
+        "type": "File",
+        "command": "touch",
+        "name": username,
+        "directories": directories,
+        "file": file
+        }
+    result = handle_request(request_data)
+    print (result)

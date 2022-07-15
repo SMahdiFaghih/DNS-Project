@@ -15,3 +15,10 @@ class FileSystemHandler():
             if not os.path.exists(path):
                 os.mkdir(path)
             temp_path = temp_path + "/" + dir
+        return temp_path
+    
+    def touch(self, directories, file, owner):
+        temp_path = self.mkdir(directories)
+        fp = open(temp_path + "/" + file, 'w')
+        fp.write(owner)
+        fp.close()

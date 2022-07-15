@@ -5,7 +5,7 @@ class User():
     def __init__(self, username) -> None:
         self.username = username
         self.filesystem = FileSystemHandler()
-        
+
 user_list = []
 def find_user(username):
     for user in user_list:
@@ -41,3 +41,5 @@ def handle_request(request):
         user = find_user(request['name'])
         if (request['command'] == 'mkdir'):
             user.filesystem.mkdir(request['directories'])
+        elif (request['command'] == 'touch'):
+            user.filesystem.touch(request['directories'], request['file'], user.username)

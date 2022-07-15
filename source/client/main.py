@@ -40,6 +40,10 @@ while (True):
         input_parts = input().split()
         if (input_parts[0] == "mkdir" and len(input_parts) == 2):
             request_handler.send_mkdir_request(current_user.name, input_parts[1].split("/"))
+        elif (input_parts[0] == "touch" and len(input_parts) == 2):
+            directories = input_parts[1].split("/")[:-1]
+            file = input_parts[1].split("/")[-1]
+            request_handler.send_touch_request(current_user.name, directories, file)
         elif (input_parts[0] == "Help"):
             print ("Valid commands are as below:")
             print ("1- mkdir [directory/directory/...]")
