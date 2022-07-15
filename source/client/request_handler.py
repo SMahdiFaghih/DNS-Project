@@ -44,3 +44,13 @@ def send_touch_request(username, directories, file):
         }
     result = handle_request(request_data)
     print (result)
+
+def send_cd_request(username, directories):
+    request_data = {
+        "type": "File",
+        "command": "cd",
+        "name": username,
+        "directories": directories
+        }
+    result = handle_request(request_data)
+    print (result)

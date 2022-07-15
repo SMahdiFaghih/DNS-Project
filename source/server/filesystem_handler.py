@@ -11,14 +11,42 @@ class FileSystemHandler():
     def mkdir(self, directories):
         temp_path = self.repo_path
         for dir in directories:
-            path = os.path.join(temp_path, dir)
-            if not os.path.exists(path):
-                os.mkdir(path)
-            temp_path = temp_path + "/" + dir
+            temp_path = os.path.join(temp_path, dir)
+            if (dir == "."):
+                pass
+            elif (dir == ".."):
+                if (temp_path != path):
+                    temp_path = os.path.abspath(temp_path)
+            elif (dir == ""):
+                temp_path = path
+            else:
+                if not os.path.exists(temp_path):
+                    os.mkdir(path)
         return temp_path
     
     def touch(self, directories, file, owner):
         temp_path = self.mkdir(directories)
-        fp = open(temp_path + "/" + file, 'w')
-        fp.write(owner)
-        fp.close()
+        file_path = temp_path + "/" + file
+        if not os.path.isfile(file_path):
+            fp = open(file_path, 'w')
+            fp.write(owner)
+            fp.close()
+
+    def cd(self, directories):
+        temp_path = self.repo_path
+        for dir in directories:
+            temp_path = os.path.join(temp_path, dir)
+            print(temp_path)
+            if (dir == "."):
+                pass
+            elif (dir == ".."):
+                if (temp_path != path):
+                    temp_path = os.path.abspath(temp_path)
+            elif (dir == ""):
+                temp_path = path
+            else:
+                if not os.path.exists(temp_path):
+                    return "Directory not exists with name: " + dir 
+        self.repo_path = temp_path
+        return "Current path is: " + self.repo_path
+            

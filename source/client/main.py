@@ -44,9 +44,12 @@ while (True):
             directories = input_parts[1].split("/")[:-1]
             file = input_parts[1].split("/")[-1]
             request_handler.send_touch_request(current_user.name, directories, file)
+        elif (input_parts[0] == "cd" and len(input_parts) == 2):
+            request_handler.send_cd_request(current_user.name, input_parts[1].split("/"))
         elif (input_parts[0] == "Help"):
             print ("Valid commands are as below:")
             print ("1- mkdir [directory/directory/...]")
-            print ("2- Register [firstname] [lastname] [username] [password]")
+            print ("2- touch [directory/directory/.../file]")
+            print ("3- cd [directory/directory/...]")
         else:
             print ("Wrong command.")

@@ -40,6 +40,8 @@ def handle_request(request):
     elif (request['type'] == "File"):
         user = find_user(request['name'])
         if (request['command'] == 'mkdir'):
-            user.filesystem.mkdir(request['directories'])
+            return user.filesystem.mkdir(request['directories'])
         elif (request['command'] == 'touch'):
-            user.filesystem.touch(request['directories'], request['file'], user.username)
+            return user.filesystem.touch(request['directories'], request['file'], user.username)
+        elif (request['command'] == 'cd'):
+            return user.filesystem.cd(request['directories'])
