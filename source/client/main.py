@@ -60,6 +60,7 @@ while (True):
             encrypted_data = security_handler.encrypt(input_parts[2])
             request_handler.send_edit_file_request(current_user, directories, file, encrypted_data)
         elif (input_parts[0] == "LogOut" and len(input_parts) == 1):
+            request_handler.send_logout_request(current_user)
             current_user = None
         elif (input_parts[0] == "Help"):
             print ("Valid commands are as below:")

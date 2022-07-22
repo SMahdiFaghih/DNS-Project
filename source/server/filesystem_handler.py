@@ -25,7 +25,7 @@ class FileSystemHandler():
                 temp_path = os.path.join(temp_path, dir)
                 if (not os.path.exists(temp_path) or os.path.isfile(temp_path)):
                     os.mkdir(temp_path)
-        return "Folders created successfully"
+        return temp_path
     
     def touch(self, directories, file, owner):
         temp_path = self.mkdir(directories)
@@ -52,9 +52,9 @@ class FileSystemHandler():
                 temp_path = path
             else:
                 if (not os.path.exists(temp_path) or os.path.isfile(temp_path)):
-                    return "Directory not exists with name: " + dir 
+                    return ["Directory not exists with name: " + dir, "Error"] 
         self.repo_path = temp_path
-        return "Current path is: " + self.repo_path
+        return [self.repo_path.split("FileRepo")[1], "OK"]
     
     def ls(self, directories, username):
         temp_path = self.repo_path
@@ -107,6 +107,7 @@ class FileSystemHandler():
             p = open(temp_path, 'r')
             file_data = security_handler.decrypt(p.read())
             if (file_data.split("\n")[0] == username):
+                p.close()
                 os.remove(temp_path)
                 return "File removed successfully"
             else: 
@@ -117,6 +118,8 @@ class FileSystemHandler():
                 return "Directory removed successfully"             
             else: 
                 return "Directory is not empty"
+        else:
+            return "Directory or File not exists with name: " + dir 
     
     def get_file_data(self, directories, file, username):
         temp_path = self.repo_path

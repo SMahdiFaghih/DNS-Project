@@ -36,6 +36,11 @@ def handle_request(request):
                     return "Login done successfully"
                 else:
                     return "Already LoggedIn"
+        elif (request["command"] == "LogOut"):
+            username = request['username']
+            user = find_user(username)
+            user_list.remove(user)
+            return "LogOut done successfully"
         else:
             return "Wrong command"
     elif (request['type'] == "File"):
