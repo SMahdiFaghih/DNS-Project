@@ -1,4 +1,4 @@
-from distutils import filelist
+from .names_security_handler import *
 from ..server.client_handler import handle_request
 
 def send_register_request(firstname, lastname, username, password):
@@ -25,17 +25,30 @@ def send_login_request(username, password):
     print (result)
     return result == "Login done successfully"
 
+def send_logout_request(username):
+    request_data = {
+        "type": "User",
+        "command": "LogOut",
+        "username": username
+        }
+    result = handle_request(request_data)
+    print (result)
+    return result == "Login done successfully"
+
 def send_mkdir_request(username, directories):
+    directories = encryptAll(directories)
     request_data = {
         "type": "File",
         "command": "mkdir",
         "name": username,
         "directories": directories
         }
-    result = handle_request(request_data)
-    print (result)
+    handle_request(request_data)
+    print ("Folders created successfully")
 
 def send_touch_request(username, directories, file):
+    directories = encryptAll(directories)
+    file = encrypt(file)
     request_data = {
         "type": "File",
         "command": "touch",
@@ -47,6 +60,7 @@ def send_touch_request(username, directories, file):
     print (result)
 
 def send_cd_request(username, directories):
+    directories = encryptAll(directories)
     request_data = {
         "type": "File",
         "command": "cd",
@@ -54,9 +68,13 @@ def send_cd_request(username, directories):
         "directories": directories
         }
     result = handle_request(request_data)
-    print (result)
+    if (result[1] == "Error"):
+        print (result[0])
+    else:
+        print ("Current path is: FileRepo" + result[0])
 
 def send_ls_request(username, directories):
+    directories = encryptAll(directories)
     request_data = {
         "type": "File",
         "command": "ls",
@@ -73,6 +91,7 @@ def send_ls_request(username, directories):
             print(file)
     
 def send_rm_directory_request(username, path):
+    path = encryptAll(path)
     request_data = {
         "type": "File",
         "command": "rm",
@@ -84,6 +103,7 @@ def send_rm_directory_request(username, path):
     print (result)
 
 def send_rm_file_request(username, path):
+    path = encryptAll(path)
     request_data = {
         "type": "File",
         "command": "rm",
@@ -95,6 +115,8 @@ def send_rm_file_request(username, path):
     print (result)
 
 def send_get_file_request(username, directories, file):
+    directories = encryptAll(directories)
+    file = encrypt(file)
     request_data = {
         "type": "File",
         "command": "GetFile",
@@ -110,6 +132,8 @@ def send_get_file_request(username, directories, file):
         return result[0]
 
 def send_edit_file_request(username, directories, file, data):
+    directories = encryptAll(directories)
+    file = encrypt(file)
     request_data = {
         "type": "File",
         "command": "EditFile",
