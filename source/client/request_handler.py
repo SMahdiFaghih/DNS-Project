@@ -71,7 +71,8 @@ def send_cd_request(username, directories):
     if (result[1] == "Error"):
         print (result[0])
     else:
-        print ("Current path is: FileRepo" + result[0])
+        path = "/".join(decryptAll(result[0].split("\\")))
+        print ("Current path is: FileRepo" + path)
 
 def send_ls_request(username, directories):
     directories = encryptAll(directories)
@@ -85,8 +86,10 @@ def send_ls_request(username, directories):
     if (type(result) is str):
         print (result)
     else:
-        print ("Current Path is: " + result["current_path"])
+        path = "/".join(decryptAll(result["current_path"].split("\\")))
+        print ("Current path is: FileRepo" + path)
         print ("Files and Directories:")
+        result["files"] = decryptAll(result["files"])
         for file in result["files"]:
             print(file)
     

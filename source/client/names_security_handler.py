@@ -19,7 +19,7 @@ def set_iv(value):
 def encrypt(raw):
     raw = _pad(raw)
     cipher = AES.new(key, AES.MODE_CBC, iv)
-    return base64.b64encode(iv + cipher.encrypt(raw.encode())).decode().replace('/', '+')
+    return base64.b64encode(iv + cipher.encrypt(raw.encode())).decode().replace('/', '-')
 
 def _pad(s):
     return s + (bs - len(s) % bs) * chr(bs - len(s) % bs)
@@ -31,9 +31,17 @@ def encryptAll(array):
     return encrypted_array
 
 def decrypt(enc):
-    enc = base64.b64decode(enc)
+    if (enc == ""):
+        return ""
+    enc = base64.b64decode(enc.replace('-', '/'))
     cipher = AES.new(key, AES.MODE_CBC, iv)
     return _unpad(cipher.decrypt(enc[AES.block_size:])).decode('utf-8')
+
+def decryptAll(array):
+    decrypted_array = []
+    for cipher in array:
+        decrypted_array.append(decrypt(cipher))
+    return decrypted_array
 
 def _unpad(s):
     return s[:-ord(s[len(s)-1:])]

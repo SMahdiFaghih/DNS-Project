@@ -84,7 +84,7 @@ class FileSystemHandler():
             else:
                 files.append(file)
         data = {
-        "current_path": self.repo_path,
+        "current_path": self.repo_path.split("FileRepo")[1],
         "files": files
         }
         return data
