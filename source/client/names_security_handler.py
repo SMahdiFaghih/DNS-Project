@@ -17,6 +17,8 @@ def set_iv(value):
     iv = value
 
 def encrypt(raw):
+    if (raw == "." or raw == ".." or raw == "" or raw == "FileRepo:"):
+        return raw
     raw = _pad(raw)
     cipher = AES.new(key, AES.MODE_CBC, iv)
     return base64.b64encode(iv + cipher.encrypt(raw.encode())).decode().replace('/', '-')

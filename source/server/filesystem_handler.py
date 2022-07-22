@@ -19,7 +19,7 @@ class FileSystemHandler():
                 temp_path = os.path.join(temp_path, "..")
                 if (temp_path != path):
                     temp_path = os.path.abspath(temp_path)
-            elif (dir == ""):
+            elif (dir == "" or dir == "FileRepo:"):
                 temp_path = path
             else:
                 temp_path = os.path.join(temp_path, dir)
@@ -48,7 +48,7 @@ class FileSystemHandler():
             elif (dir == ".."):
                 if (temp_path != path):
                     temp_path = os.path.abspath(temp_path)
-            elif (dir == ""):
+            elif (dir == "" or dir == "FileRepo:"):
                 temp_path = path
             else:
                 if (not os.path.exists(temp_path) or os.path.isfile(temp_path)):
@@ -68,7 +68,7 @@ class FileSystemHandler():
                 elif (dir == ".."):
                     if (temp_path != path):
                         temp_path = os.path.abspath(temp_path)
-                elif (dir == ""):
+                elif (dir == "" or dir == "FileRepo:"):
                     temp_path = path
                 else:
                     if not os.path.exists(temp_path):
@@ -98,7 +98,7 @@ class FileSystemHandler():
             elif (dir == ".."):
                 if (temp_path != path):
                     temp_path = os.path.abspath(temp_path)
-            elif (dir == ""):
+            elif (dir == "" or dir == "FileRepo:"):
                 temp_path = path
             else:
                 if not os.path.exists(temp_path):
@@ -130,7 +130,7 @@ class FileSystemHandler():
             elif (dir == ".."):
                 if (temp_path != path):
                     temp_path = os.path.abspath(temp_path)
-            elif (dir == ""):
+            elif (dir == "" or dir == "FileRepo:"):
                 temp_path = path
             else:
                 if not os.path.exists(temp_path):
@@ -157,7 +157,7 @@ class FileSystemHandler():
             elif (dir == ".."):
                 if (temp_path != path):
                     temp_path = os.path.abspath(temp_path)
-            elif (dir == ""):
+            elif (dir == "" or dir == "FileRepo:"):
                 temp_path = path
             else:
                 if not os.path.exists(temp_path):
